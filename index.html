@@ -356,59 +356,67 @@ Use direct, professional language.</pre>
   <h2>Walk Into the Meeting Prepared</h2>
 
   <div class="step">
-    <p class="say lead">Think of something you may realistically need to understand before a meeting.</p>
-    <ul class="plain">
-      <li>A company you are meeting</li>
-      <li>A potential partner</li>
-      <li>A supplier</li>
-      <li>A market</li>
-      <li>A new technology</li>
-      <li>An industry</li>
-      <li>A competitor</li>
-      <li>A major trend</li>
-    </ul>
-    <p class="say">Use a public or non-sensitive topic during the workshop.</p>
+    <p class="say lead">Choose a public company you may realistically meet, partner with, buy from, or evaluate.</p>
+    <p class="say">You will run the same prompt twice &mdash; once with ordinary web search, once with Research &mdash;
+    and see what changes.</p>
+    <p class="say">Use a public company during the workshop.</p>
   </div>
 
   <div class="step">
+    <div class="step-n"><span>Step 1 &middot; Web search</span><i></i></div>
+    <p class="say">Start a new Claude chat and leave Research <b>off</b>. Send the prompt and keep the answer.</p>
+
+    <div class="block">
+      <div class="block-bar">
+        <span>The prompt &mdash; you will use it twice</span>
+        <button class="copy" type="button" data-copy="p5">Copy Prompt</button>
+      </div>
+      <pre id="p5">I am preparing for a potential partnership meeting with [COMPANY].
+
+Use credible public sources to prepare me.
+
+Cover:
+- Recent developments
+- Strategic priorities
+- Important business signals
+- Relevant partnerships and competitors
+- Potential opportunities
+- Risks or concerns
+- Important unknowns
+- 5 intelligent questions I should ask in the meeting
+
+Cite important factual claims.
+
+End with: If you only remember three things.
+
+Keep it practical and executive.</pre>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-n"><span>Step 2 &middot; Research</span><i></i></div>
+    <p class="say">Start a new chat. Turn Research <b>on</b> from the + menu. Send the same prompt, about the
+    same company.</p>
     <div class="callout">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path>
       </svg>
-      <p>Turn on Research before sending the prompt.</p>
+      <p>This one takes minutes, not seconds. Send it and put the laptop down.</p>
     </div>
+  </div>
 
-    <div class="block">
-      <div class="block-bar">
-        <span>The prompt</span>
-        <button class="copy" type="button" data-copy="p5">Copy Prompt</button>
-      </div>
-      <pre id="p5">I have an upcoming meeting about [COMPANY / TOPIC / MARKET].
-
-Before you research, ask me:
-1. What is the purpose of the meeting?
-2. Who am I meeting, or what type of audience is involved?
-3. What decision, outcome, or understanding do I want from the meeting?
-
-Then use Research to prepare me.
-
-Create a concise executive meeting brief covering:
-- What I need to understand first
-- What has changed recently
-- The 5 most important things I should know
-- Important numbers and facts
-- Relevant opportunities
-- Risks or concerns
-- What may not be obvious
-- Different perspectives or uncertainties where relevant
-- 5 intelligent questions worth asking in the meeting
-
-Use recent, credible sources. Cite important factual claims. Clearly distinguish verified facts from interpretation.
-
-End with a section titled: "If you only remember three things"
-
-Keep the final brief practical and concise.</pre>
+  <div class="step">
+    <div class="ask"><p>Same question. What changed when you switched from Web Search to Research?</p></div>
+    <div class="eg">
+      <h3>Notice</h3>
+      <ul>
+        <li>Speed</li>
+        <li>Depth</li>
+        <li>Sources</li>
+        <li>Connections between information</li>
+        <li>Quality of the final brief</li>
+      </ul>
     </div>
   </div>
 </section>
