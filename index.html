@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Claude Executive Labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one calm column on a near-white ground. The course identity, carried
+   from the slide deck so the page and the screen behind it are the same object.
+   Committed single light theme on purpose — this is the academy's look. */
+:root{
+  color-scheme: light;
+
+  --bg:#FBFBFD;
+  --card:#FFFFFF;
+  --panel:#F5F6FA;
+  --line:#E7E9F3;
+  --line2:#D8DCEC;
+
+  --ink:#191919;
+  --ink2:#404040;
+  --muted:#6B6B6B;
+  --muted3:#9094A6;
+
+  --pri:#5169DD;
+  --pri-d:#3A50B8;
+  --pri-bg:#EEF0FC;
+  --pri-line:#D9DEF7;
+
+  --f:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --m:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+
+*{box-sizing:border-box}
+/* a class that sets display beats the browser's own [hidden] rule, so say it
+   louder — the chooser is display:flex and would stay on screen without this */
+[hidden]{display:none!important}
+body{
+  margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  padding-inline:20px;padding-block:0;
+}
+.wrap{max-width:720px;margin:0 auto}
+
+/* ---------------------------------------------------------------- masthead */
+header.top{padding-block:56px 40px;border-bottom:1px solid var(--line)}
+.mark{display:flex;align-items:center;gap:10px;margin-bottom:26px}
+.mark i{width:13px;height:13px;border-radius:3px;background:var(--pri);display:block;flex:none}
+.mark span{font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--pri)}
+h1{
+  margin:0 0 14px;font-size:clamp(34px,8vw,46px);line-height:1.08;
+  letter-spacing:-.028em;font-weight:700;text-wrap:balance;
+}
+.strap{margin:0;font-size:clamp(17px,4vw,19px);line-height:1.5;color:var(--muted);max-width:30ch}
+
+/* ------------------------------------------------------------ lab chooser */
+.choose{padding-block:40px 64px;display:flex;flex-direction:column;gap:14px}
+.pick{
+  display:block;width:100%;text-align:left;cursor:pointer;
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:24px 22px;font:inherit;color:inherit;
+  transition:border-color .16s ease, transform .16s ease;
+}
+.pick:hover{border-color:var(--pri-line);transform:translateY(-1px)}
+.pick:focus-visible{outline:2.5px solid var(--pri);outline-offset:3px}
+.pick .n{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:30px;height:30px;border-radius:9px;background:var(--pri-bg);color:var(--pri-d);
+  font-size:15px;font-weight:700;margin-bottom:14px;
+}
+.pick h2{margin:0 0 5px;font-size:23px;line-height:1.2;letter-spacing:-.018em;font-weight:700}
+.pick .kind{
+  display:block;font-size:12px;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--pri);margin-bottom:9px;
+}
+.pick p{margin:0;font-size:16px;line-height:1.55;color:var(--muted)}
+.pick .go{
+  display:inline-block;margin-top:16px;font-size:15px;font-weight:600;color:var(--pri);
+}
+
+/* ----------------------------------------------------------------- a lab */
+.lab{padding-block:30px 72px}
+.back{
+  display:inline-flex;align-items:center;gap:7px;background:none;border:0;padding:8px 0;
+  font:inherit;font-size:15px;font-weight:600;color:var(--pri);cursor:pointer;margin-bottom:26px;
+}
+.back:focus-visible{outline:2.5px solid var(--pri);outline-offset:3px;border-radius:4px}
+.lab .kind{
+  display:block;font-size:12px;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--pri);margin-bottom:10px;
+}
+.lab h2{
+  margin:0 0 30px;font-size:clamp(28px,6.5vw,36px);line-height:1.13;
+  letter-spacing:-.025em;font-weight:700;text-wrap:balance;
+}
+
+.step{margin-bottom:34px}
+.step-n{
+  display:flex;align-items:center;gap:11px;margin-bottom:13px;
+  font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted3);
+}
+.step-n i{height:1px;flex:1;background:var(--line);display:block}
+
+p.say{margin:0 0 15px;font-size:17px;line-height:1.62;color:var(--ink2)}
+p.say.lead{font-size:19px;line-height:1.55;color:var(--ink)}
+p.say:last-child{margin-bottom:0}
+
+ul.plain{margin:0 0 18px;padding-left:22px}
+ul.plain li{font-size:17px;line-height:1.7;color:var(--ink2)}
+
+/* the thing you copy */
+.block{
+  background:var(--card);border:1px solid var(--line2);border-radius:14px;
+  overflow:hidden;margin-bottom:18px;
+}
+.block-bar{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:11px 14px 11px 18px;background:var(--panel);border-bottom:1px solid var(--line);
+}
+.block-bar span{
+  font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted3);
+}
+.block pre{
+  margin:0;padding:20px 18px;font-family:var(--m);font-size:14.5px;line-height:1.72;
+  color:var(--ink);white-space:pre-wrap;word-break:break-word;
+}
+.copy{
+  flex:none;display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+  background:var(--pri);color:#FFFFFF;border:0;border-radius:9px;
+  padding:9px 15px;font:inherit;font-size:14px;font-weight:600;
+  transition:background .14s ease;
+}
+.copy:hover{background:var(--pri-d)}
+.copy:focus-visible{outline:2.5px solid var(--pri-d);outline-offset:3px}
+.copy.done{background:#2E7D52}
+.copy svg{width:15px;height:15px;flex:none}
+
+/* a thing to open */
+.open-doc{
+  display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+  background:var(--card);border:1.5px solid var(--pri);border-radius:12px;
+  padding:14px 20px;font-size:16px;font-weight:600;color:var(--pri);margin-bottom:6px;
+}
+.open-doc:hover{background:var(--pri-bg)}
+.open-doc:focus-visible{outline:2.5px solid var(--pri);outline-offset:3px}
+.open-doc svg{width:17px;height:17px;flex:none}
+
+/* a thing to notice before you send */
+.callout{
+  display:flex;gap:13px;align-items:flex-start;
+  background:var(--pri-bg);border:1px solid var(--pri-line);border-radius:13px;
+  padding:16px 18px;margin-bottom:18px;
+}
+.callout svg{width:19px;height:19px;flex:none;color:var(--pri-d);margin-top:2px}
+.callout p{margin:0;font-size:16.5px;line-height:1.5;color:var(--pri-d);font-weight:500}
+
+/* quiet examples, not instructions */
+.eg{background:var(--panel);border-radius:13px;padding:18px 20px;margin-bottom:18px}
+.eg h3{
+  margin:0 0 11px;font-size:11.5px;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted3);
+}
+.eg ul{margin:0;padding-left:20px}
+.eg li{font-size:16px;line-height:1.75;color:var(--muted)}
+
+.ask{
+  border-left:3px solid var(--pri);padding:4px 0 4px 18px;margin-bottom:6px;
+}
+.ask p{margin:0;font-size:19px;line-height:1.5;font-weight:600;color:var(--ink);text-wrap:balance}
+
+footer{
+  border-top:1px solid var(--line);padding-block:26px 48px;
+  font-size:14.5px;line-height:1.6;color:var(--muted3);
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+
+<header class="top">
+  <div class="mark"><i></i><span>Tuwaiq Academy · Claude for Business</span></div>
+  <h1>Claude Executive Labs</h1>
+  <p class="strap">Three short experiences. Create. Personalize. Research.</p>
+</header>
+
+<!-- ------------------------------------------------------------- chooser -->
+<main id="home" class="choose">
+
+  <button class="pick" type="button" data-go="lab1">
+    <span class="n">1</span>
+    <span class="kind">Create</span>
+    <h2>From Thought to Artifact</h2>
+    <p>Turn an idea into something tangible.</p>
+    <span class="go">Start &rarr;</span>
+  </button>
+
+  <button class="pick" type="button" data-go="lab2">
+    <span class="n">2</span>
+    <span class="kind">Personalize</span>
+    <h2>Make Claude Work Like You</h2>
+    <p>See how Claude changes when it understands how you prefer to work.</p>
+    <span class="go">Start &rarr;</span>
+  </button>
+
+  <button class="pick" type="button" data-go="lab3">
+    <span class="n">3</span>
+    <span class="kind">Research</span>
+    <h2>Walk Into the Meeting Prepared</h2>
+    <p>Use Research to prepare for a real meeting or unfamiliar subject.</p>
+    <span class="go">Start &rarr;</span>
+  </button>
+
+</main>
+
+<!-- ---------------------------------------------------------------- lab 1 -->
+<section id="lab1" class="lab" hidden>
+  <button class="back" type="button" data-back>&larr; All labs</button>
+  <span class="kind">Lab 1 · Create</span>
+  <h2>From Thought to Artifact</h2>
+
+  <div class="step">
+    <p class="say lead">Think of something that has been on your mind recently.</p>
+    <p class="say">It could be:</p>
+    <ul class="plain">
+      <li>An initiative</li>
+      <li>A new idea</li>
+      <li>A trip</li>
+      <li>An event</li>
+      <li>A product or service</li>
+      <li>A personal project</li>
+      <li>Something you may want to propose to someone</li>
+    </ul>
+    <p class="say">You do not need to prepare it. Explain it to Claude naturally.</p>
+  </div>
+
+  <div class="step">
+    <div class="step-n"><span>The prompt</span><i></i></div>
+    <div class="block">
+      <div class="block-bar">
+        <span>Paste this into Claude</span>
+        <button class="copy" type="button" data-copy="p1">Copy Prompt</button>
+      </div>
+      <pre id="p1">Something has been on my mind and I want to turn it into something concrete.
+
+I will explain the idea to you in my own words.
+
+First, ask me up to 3 important questions that would help you understand what I am trying to achieve.
+
+Then turn the idea into a polished Artifact that I could show to another person. Choose the format that best fits the idea — for example a concept note, one-page proposal, plan, or short presentation.
+
+Make it clear, concise, visually polished, and useful.
+
+Do not start building until you have asked your questions.</pre>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-n"><span>Then make it better</span><i></i></div>
+    <p class="say lead">Now improve it by talking to Claude naturally.</p>
+    <div class="eg">
+      <h3>For example</h3>
+      <ul>
+        <li>Make this more concise.</li>
+        <li>Make the recommendation clearer.</li>
+        <li>Remove anything unnecessary.</li>
+        <li>Make this suitable for someone seeing the idea for the first time.</li>
+        <li>Turn this into five slides.</li>
+        <li>Make the visual style more premium.</li>
+      </ul>
+    </div>
+    <p class="say">You do not need a sophisticated prompt. Say what you want changed, the way you would say it to a colleague.</p>
+  </div>
+</section>
+
+<!-- ---------------------------------------------------------------- lab 2 -->
+<section id="lab2" class="lab" hidden>
+  <button class="back" type="button" data-back>&larr; All labs</button>
+  <span class="kind">Lab 2 · Personalize</span>
+  <h2>Make Claude Work Like You</h2>
+
+  <div class="step">
+    <div class="step-n"><span>Step 1 · The document</span><i></i></div>
+    <p class="say">Open the Executive Update provided for this lab.</p>
+    <a class="open-doc" id="doclink" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <path d="M14 2v6h6"></path>
+      </svg>
+      Open Executive Update
+    </a>
+  </div>
+
+  <div class="step">
+    <div class="step-n"><span>Step 2 · Before</span><i></i></div>
+    <p class="say">Start a new Claude chat.</p>
+    <div class="block">
+      <div class="block-bar">
+        <span>The prompt</span>
+        <button class="copy" type="button" data-copy="p2">Copy Prompt</button>
+      </div>
+      <pre id="p2">Summarize this update for me.</pre>
+    </div>
+    <p class="say">Attach or paste the Executive Update and send the prompt. Keep the result.</p>
+  </div>
+
+  <div class="step">
+    <div class="step-n"><span>Step 3 · Your instructions</span><i></i></div>
+    <p class="say">Now tell Claude how you prefer information to be presented — once, instead of repeating yourself in every prompt.</p>
+    <div class="block">
+      <div class="block-bar">
+        <span>Add these to your Claude Instructions</span>
+        <button class="copy" type="button" data-copy="p3">Copy Instructions</button>
+      </div>
+      <pre id="p3">Start with anything that requires my attention or decision.
+Keep executive updates concise.
+Separate facts, risks, decisions, and recommended actions.
+Surface bad news clearly; do not bury it.
+Call out missing information and assumptions.
+When there are several options, explain the trade-offs.
+Use direct, professional language.</pre>
+    </div>
+    <p class="say">You may personalize one or two lines if you want Claude to work differently for you.</p>
+    <p class="say">Add them in Claude: your name, bottom left &rsaquo; Settings &rsaquo; Account &rsaquo; Instructions for Claude. Save.</p>
+  </div>
+
+  <div class="step">
+    <div class="step-n"><span>Step 4 · After</span><i></i></div>
+    <p class="say">Start a new chat.</p>
+    <p class="say">Use exactly the same prompt, and exactly the same Executive Update.</p>
+    <div class="block">
+      <div class="block-bar">
+        <span>The same prompt</span>
+        <button class="copy" type="button" data-copy="p4">Copy Prompt</button>
+      </div>
+      <pre id="p4">Summarize this update for me.</pre>
+    </div>
+    <div class="ask"><p>What changed — even though the prompt did not?</p></div>
+  </div>
+</section>
+
+<!-- ---------------------------------------------------------------- lab 3 -->
+<section id="lab3" class="lab" hidden>
+  <button class="back" type="button" data-back>&larr; All labs</button>
+  <span class="kind">Lab 3 · Research</span>
+  <h2>Walk Into the Meeting Prepared</h2>
+
+  <div class="step">
+    <p class="say lead">Think of something you may realistically need to understand before a meeting.</p>
+    <ul class="plain">
+      <li>A company you are meeting</li>
+      <li>A potential partner</li>
+      <li>A supplier</li>
+      <li>A market</li>
+      <li>A new technology</li>
+      <li>An industry</li>
+      <li>A competitor</li>
+      <li>A major trend</li>
+    </ul>
+    <p class="say">Use a public or non-sensitive topic during the workshop.</p>
+  </div>
+
+  <div class="step">
+    <div class="callout">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path>
+      </svg>
+      <p>Turn on Research before sending the prompt.</p>
+    </div>
+
+    <div class="block">
+      <div class="block-bar">
+        <span>The prompt</span>
+        <button class="copy" type="button" data-copy="p5">Copy Prompt</button>
+      </div>
+      <pre id="p5">I have an upcoming meeting about [COMPANY / TOPIC / MARKET].
+
+Before you research, ask me:
+1. What is the purpose of the meeting?
+2. Who am I meeting, or what type of audience is involved?
+3. What decision, outcome, or understanding do I want from the meeting?
+
+Then use Research to prepare me.
+
+Create a concise executive meeting brief covering:
+- What I need to understand first
+- What has changed recently
+- The 5 most important things I should know
+- Important numbers and facts
+- Relevant opportunities
+- Risks or concerns
+- What may not be obvious
+- Different perspectives or uncertainties where relevant
+- 5 intelligent questions worth asking in the meeting
+
+Use recent, credible sources. Cite important factual claims. Clearly distinguish verified facts from interpretation.
+
+End with a section titled: "If you only remember three things"
+
+Keep the final brief practical and concise.</pre>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Use fictional, public, or non-sensitive information during the workshop.
+  Follow your organization&rsquo;s policies when working with internal information.
+</footer>
+
+</div>
+
+<script>
+/* ----------------------------------------------------------------------
+   THE EXECUTIVE UPDATE LINK
+   Replace the value below with the sharing URL of Executive-Update.docx.
+   Nothing else in this file needs to change.
+   ---------------------------------------------------------------------- */
+var EXECUTIVE_UPDATE_URL = "https://docs.google.com/document/d/11ExkHYAhq0bcnMqIRVI4kyTclHwqGeGo/edit?usp=sharing";
+
+(function () {
+  var doclink = document.getElementById("doclink");
+  if (doclink) doclink.href = EXECUTIVE_UPDATE_URL;
+
+  var views = ["home", "lab1", "lab2", "lab3"];
+
+  function show(id, push) {
+    views.forEach(function (v) {
+      var el = document.getElementById(v);
+      if (el) el.hidden = (v !== id);
+    });
+    if (push) {
+      try { history.replaceState(null, "", id === "home" ? "#" : "#" + id); } catch (e) {}
+    }
+    window.scrollTo(0, 0);
+  }
+
+  document.querySelectorAll("[data-go]").forEach(function (b) {
+    b.addEventListener("click", function () { show(b.getAttribute("data-go"), true); });
+  });
+  document.querySelectorAll("[data-back]").forEach(function (b) {
+    b.addEventListener("click", function () { show("home", true); });
+  });
+
+  function fromHash() {
+    var h = (location.hash || "").replace("#", "");
+    return views.indexOf(h) > 0 ? h : null;
+  }
+  show(fromHash() || "home", false);
+  /* the artifact viewer may hand the fragment over after load rather than with
+     it, so listen as well as read once */
+  window.addEventListener("hashchange", function () {
+    var v = fromHash();
+    if (v) show(v, false);
+  });
+
+  /* copy, with the selection fallback for viewers whose clipboard is refused */
+  var TICK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"'
+           + ' stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+           + '<path d="M20 6 9 17l-5-5"></path></svg>';
+
+  document.querySelectorAll(".copy").forEach(function (btn) {
+    var label = btn.textContent;
+    btn.addEventListener("click", function () {
+      var src = document.getElementById(btn.getAttribute("data-copy"));
+      if (!src) return;
+      var text = src.textContent;
+
+      function ok() {
+        btn.innerHTML = TICK + "Copied";
+        btn.classList.add("done");
+        setTimeout(function () { btn.textContent = label; btn.classList.remove("done"); }, 2000);
+      }
+      function fallback() {
+        try {
+          var r = document.createRange();
+          r.selectNodeContents(src);
+          var sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(r);
+          btn.textContent = "Select and copy";
+          setTimeout(function () { btn.textContent = label; }, 2600);
+        } catch (e) {
+          btn.textContent = "Select and copy";
+          setTimeout(function () { btn.textContent = label; }, 2600);
+        }
+      }
+
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(ok, fallback);
+        } else { fallback(); }
+      } catch (e) { fallback(); }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
